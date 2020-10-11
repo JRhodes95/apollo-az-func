@@ -1,0 +1,21 @@
+{
+  "name": "apollo-az-func",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "func start",
+    "test": "echo \"No tests yet...\""
+  },
+  "dependencies": {
+    "apollo-datasource-rest": "^0.9.4",
+    "apollo-server-azure-functions": "^2.18.2",
+    "axios": "^0.20.0",
+    "dataloader": "^2.0.0",
+    "graphql": "^15.3.0"
+  },
+  "devDependencies": {},
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
