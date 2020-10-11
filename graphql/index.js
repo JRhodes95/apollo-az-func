@@ -23,10 +23,13 @@ const typeDefs = gql`
   }
 `;
 
+// Define a data source corresponding to a REST API
 class SpaceXAPI extends RESTDataSource {
   constructor() {
     super();
     this.baseURL = "https://api.spacexdata.com/v4/";
+
+    // Create a DataLoader to batch launchpad queries into one http call
     this.launchpadLoader = new DataLoader(async (ids) => {
       const queryBody = {
         query: {
@@ -40,14 +43,19 @@ class SpaceXAPI extends RESTDataSource {
     });
   }
 
-  async getLaunches() {
-    return this.get(`launches`);
-  }
-
+  // We get can launches as individual HTTP calls to the endpoint with an ID
+  // This makes n+1 calls but Apollo will cache the results to make subsequent calls in-memory lookups
   async getLaunch(id) {
     return this.get(`launches/${id}`);
   }
 
+  async getLaunches() {
+    return this.get(`launches`);
+  }
+
+  // If we want to solve the n+1 problem,
+  // we can use dataloader to define a batching mechanism for data fetching (see constructor)
+  // Reduces load on REST endpoints - but many endpoints won't give a nice interface to batch calls
   async loadLaunchpad(id) {
     return this.launchpadLoader.load(id);
   }
