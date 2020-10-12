@@ -43,7 +43,7 @@ class SpaceXAPI extends RESTDataSource {
     });
   }
 
-  // We get can launches as individual HTTP calls to the endpoint with an ID
+  // We can get launches as individual HTTP calls to the endpoint with an ID
   // This makes n+1 calls but Apollo will cache the results to make subsequent calls in-memory lookups
   async getLaunch(id) {
     return this.get(`launches/${id}`);
